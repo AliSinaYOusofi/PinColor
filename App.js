@@ -1,11 +1,11 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Ionicons } from '@expo/vector-icons';
-import { Pressable } from 'react-native';
+
 
 import * as SystemUI from 'expo-system-ui';
 import SettingsNavigator from './components/SettingsNavigator';
+import MenuDrawer from './components/MenuDrawer';
 
 SystemUI.setBackgroundColorAsync("white");
 const StackNavigator = createNativeStackNavigator()
@@ -31,9 +31,7 @@ export default function App({navigation}) {
                             <SettingsNavigator />
                         ),
                         headerLeft: () => (
-                            <Pressable>
-                                <Ionicons name="menu-outline" size={24} color="black" />
-                            </Pressable>
+                            <MenuDrawer />
                         ),
                         
                         headerTitleAlign: 'center',

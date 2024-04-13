@@ -13,7 +13,7 @@ export default function Page() {
     const generateRandomSize = () => {
         const width = Math.floor(Math.random() * 100) + 50; 
         const heightMultiplier = Math.random() > 0.5 ? 2 : Math.random() * 0.5 + 1.5;
-        return width * heightMultiplier;
+        return width * heightMultiplier ;
     };
     
 
