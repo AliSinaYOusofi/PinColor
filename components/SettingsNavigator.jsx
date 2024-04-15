@@ -6,7 +6,7 @@ export default function SettingsNavigator({}) {
 
     const navigator = useNavigation();
     return (
-        <Pressable onPress={() => navigator.navigate("displaycolors")}>
+        <Pressable onPress={() => navigator.navigate("settings")}>
             <Ionicons name="settings-outline" size={24} color="black" />
         </Pressable>
     )
