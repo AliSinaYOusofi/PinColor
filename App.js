@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-
-
+import { Ionicons } from '@expo/vector-icons';
+import { Pressable } from 'react-native';
 import * as SystemUI from 'expo-system-ui';
 import SettingsNavigator from './components/SettingsNavigator';
-import MenuDrawer from './components/MenuDrawer';
+import MenuDrawer from './screens/MenuDrawer';
 
 SystemUI.setBackgroundColorAsync("white");
 const StackNavigator = createNativeStackNavigator()
+
 export default function App({navigation}) {
+    const [showDrawer, setShowDrawer] = useState(false)
 
     return (
         <NavigationContainer>
@@ -31,7 +33,9 @@ export default function App({navigation}) {
                             <SettingsNavigator />
                         ),
                         headerLeft: () => (
-                            <MenuDrawer />
+                            <Pressable onPress={() => setShowDrawer(prev => ! prev)}>
+                                <Ionicons name="menu-outline" size={25}/>
+                            </Pressable>
                         ),
                         
                         headerTitleAlign: 'center',
@@ -46,9 +50,12 @@ export default function App({navigation}) {
             >
                 <StackNavigator.Screen name="home" component={require('./screens/index').default} />
                 <StackNavigator.Screen name="displaycolors" component={require('./screens/DisplayColors').default} />
+                <StackNavigator.Screen name="settings" component={require('./screens/Settings').default} />
                 
-
             </StackNavigator.Navigator>
+            
+            <MenuDrawer />
+        
         </NavigationContainer>
     )
 }
