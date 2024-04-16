@@ -61,14 +61,13 @@ const styles = StyleSheet.create({
     colorBox: {
         width: 100,
         height: 100,
-        borderRadius: 10,
+        borderRadius: 20,
         marginHorizontal: 5,
     },
     bigColorDisplay: {
         width: 300,
         height: 450,
         borderRadius: 20,
-        
         marginTop: 20
     },
     smallColorGallery: {
