@@ -1,53 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, FlatList, Pressable } from 'react-native';
+import tinycolor from 'tinycolor2';
 
 export default function DisplayColors({ route }) {
-    
-    const [currentDisplayColor, setCurrentDisplayColor] = useState()
-    const [randomColorsList, setRandomColorsList] = useState([]);
+    const [currentDisplayColor, setCurrentDisplayColor] = useState();
+    const [shadesList, setShadesList] = useState([]);
 
     const { color } = route.params;
 
-    const generateRandomColor = () => {
-        return '#' + Math.floor(Math.random() * 16777215).toString(16);
-    };
-
-    const generateRandomItem = () => {
-        return {
-            key: String(Math.random()),
-            color: generateRandomColor(),
-        };
-    };
-
-    const loadMoreData = () => {
-        const newData = Array.from({ length: 10 }, () => generateRandomItem());
-        setRandomColorsList([...randomColorsList, ...newData]);
+    const generateShades = (color) => {
+        
+        const shades = [];
+        
+        const colorObj = tinycolor(color);
+        
+        for (let i = 0; i <= 10; i++) {
+            const shadeColor = colorObj.clone().darken(i * 10).toString();
+            shades.push({
+                key: String(i),
+                color: shadeColor,
+            });
+        }
+        return shades;
     };
 
     useEffect(() => {
-        const initialData = Array.from({ length: 20 }, () => generateRandomItem());
-        setRandomColorsList(initialData);
-        setCurrentDisplayColor(color)
+        const shades = generateShades(color);
+        setShadesList(shades);
+        setCurrentDisplayColor(color);
     }, []);
 
     return (
         <View style={styles.container}>
-            <View style={[styles.bigColorDisplay, { backgroundColor: currentDisplayColor }]}></View>
-            
+            <View style={[styles.bigColorDisplay, { backgroundColor: currentDisplayColor, borderRadius: 20 }]}></View>
+
             <FlatList
                 horizontal
                 contentContainerStyle={styles.smallColorGallery}
-                data={randomColorsList}
+                data={shadesList}
                 renderItem={({ item }) => (
                     <Pressable onPress={() => setCurrentDisplayColor(item.color)}>
                         <View style={[styles.colorBox, { backgroundColor: item.color }]}></View>
                     </Pressable>
                 )}
                 keyExtractor={(item) => item.key}
-                onEndReached={loadMoreData}
-                onEndReachedThreshold={0.1}
             />
-
         </View>
     );
 }

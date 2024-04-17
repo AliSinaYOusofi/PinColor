@@ -11,9 +11,9 @@ export default function Page() {
     };
 
     const generateRandomSize = () => {
-        const width = Math.floor(Math.random() * 100) + 50; 
-        const heightMultiplier = Math.random() > 0.5 ? 2 : Math.random() * 0.5 + 1.5;
-        return width * heightMultiplier ;
+        const width = 100;
+        const heightMultiplier = 2;
+        return width * heightMultiplier;
     };
     
 
@@ -44,12 +44,24 @@ export default function Page() {
         <FlatList
             data={data}
             renderItem={({ item }) => (
-            <Pressable onPress={() => navigateToDisplayColors(item.color1)}>
+            
                 <View style={styles.row}>
-                    <View style={[styles.color_view, { backgroundColor: item.color1, width: "50%", height: item.size }]}></View>
-                    <View style={[styles.color_view, { backgroundColor: item.color2, width: "50%", height: item.size * (Math.random() + 0.5) }]}></View>
+
+                    <Pressable 
+                        style={[styles.color_view, { backgroundColor: item.color1, width: "50%", height: item.size }]}
+                        onPress={() => navigateToDisplayColors(item.color1)}
+                    >
+
+                    </Pressable>
+
+                    <Pressable 
+                        style={[styles.color_view, { backgroundColor: item.color2, width: "50%", height: item.size}]}
+                        onPress={() => navigateToDisplayColors(item.color2)}
+                    >
+                        
+                    </Pressable>
                 </View>
-            </Pressable>
+            
         )}
             keyExtractor={(item) => item.key}
             onEndReached={loadMoreData}
