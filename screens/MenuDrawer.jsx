@@ -1,5 +1,5 @@
-import React from 'react'
-import { createDrawerNavigator } from '@react-navigation/drawer'
+import React from 'react';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Ionicons } from '@expo/vector-icons';
 import { Pressable } from 'react-native';
 import SettingsNavigator from '../components/SettingsNavigator';
@@ -8,39 +8,37 @@ import Page from '.';
 import DisplayColors from './DisplayColors';
 import Settings from './Settings';
 import AppInfo from './AppInfo';
-const Drawer = createDrawerNavigator()
+import ListOfShades from './ListOfShades';
+
+const Drawer = createDrawerNavigator();
 
 export default function MenuDrawer() {
     return (
-        <Drawer.Navigator  
+        <Drawer.Navigator
             initialRouteName='home'
-            screenOptions={
-                {
-                    headerStyle: {
-                        backgroundColor: 'white',
-                    },
-
-                    headerTintColor: 'black',
-                    
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                    },
-                    title: "ColScr",
-                    
-                    headerTitleAlign: 'center',
-                    
-                    headerShadowVisible: false,
-                    
-                    headerBackVisible: false,
-                    
-                    headerBackTitleVisible: false,
-                }
-            }
+            
+            screenOptions={{
+            
+                headerStyle: {
+                    backgroundColor: 'white',
+                },
+            
+                headerTintColor: 'black',
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                },
+            
+                title: "ColScr",
+                headerTitleAlign: 'center',
+                headerShadowVisible: false,
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+            }}
         >
-             <Drawer.Screen
+            <Drawer.Screen
                 name="Favourties"
                 component={FavouriteColors}
-                options={({ navigation }) => ({
+                options={({ navigation, route }) => ({
                     title: 'Favourites',
                     headerLeft: () => (
                         <Pressable onPress={() => navigation.navigate("home")}>
@@ -56,6 +54,7 @@ export default function MenuDrawer() {
                     ),
                 })}
             />
+
             <Drawer.Screen
                 name="home"
                 component={Page}
@@ -73,7 +72,7 @@ export default function MenuDrawer() {
             <Drawer.Screen
                 name="settings"
                 component={Settings}
-                options={{
+                options={({ navigation }) => ({
                     title: 'Settings',
                     drawerIcon: ({ focused, color, size }) => (
                         <Ionicons
@@ -82,12 +81,37 @@ export default function MenuDrawer() {
                             color={color}
                         />
                     ),
-                }}
+                    headerLeft: () => (
+                        <Pressable onPress={() => navigation.navigate("home")}>
+                            <Ionicons name="arrow-back" size={24} color="black" />
+                        </Pressable>
+                    ),
+                })}
             />
+            <Drawer.Screen
+                name="shades"
+                component={ListOfShades}
+                options={({ navigation }) => ({
+                    title: 'Shades',
+                    drawerIcon: ({ focused, color, size }) => (
+                        <Ionicons
+                            name={focused ? 'color-filter-outline' : 'color-filter-sharp'}
+                            size={size}
+                            color={color}
+                        />
+                    ),
+                    headerLeft: () => (
+                        <Pressable onPress={() => navigation.navigate("home")}>
+                            <Ionicons name="arrow-back" size={24} color="black" />
+                        </Pressable>
+                    ),
+                })}
+            />
+
             <Drawer.Screen
                 name="info"
                 component={AppInfo}
-                options={{
+                options={({ navigation }) => ({
                     title: 'Info',
                     drawerIcon: ({ focused, color, size }) => (
                         <Ionicons
@@ -96,8 +120,13 @@ export default function MenuDrawer() {
                             color={color}
                         />
                     ),
-                }}
+                    headerLeft: () => (
+                        <Pressable onPress={() => navigation.navigate("home")}>
+                            <Ionicons name="arrow-back" size={24} color="black" />
+                        </Pressable>
+                    ),
+                })}
             />
         </Drawer.Navigator>
-    )
+    );
 }
