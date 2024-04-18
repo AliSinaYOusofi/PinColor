@@ -3,6 +3,7 @@ import { View, StyleSheet, FlatList, Pressable } from 'react-native';
 import tinycolor from 'tinycolor2';
 
 export default function DisplayColors({ route }) {
+    
     const [currentDisplayColor, setCurrentDisplayColor] = useState();
     const [shadesList, setShadesList] = useState([]);
 
@@ -25,9 +26,11 @@ export default function DisplayColors({ route }) {
     };
 
     useEffect(() => {
+        
         const shades = generateShades(color);
         setShadesList(shades);
         setCurrentDisplayColor(color);
+    
     }, []);
 
     return (

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, StyleSheet, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import HexColorView from '../components/HexColorView';
+import GoFullScreen from '../components/GoFullScreen';
 
 export default function Page() {
     const [data, setData] = useState([]);
@@ -51,6 +53,8 @@ export default function Page() {
                         style={[styles.color_view, { backgroundColor: item.color1, width: "50%", height: item.size }]}
                         onPress={() => navigateToDisplayColors(item.color1)}
                     >
+                            <HexColorView hex={item.color1} />
+                            <GoFullScreen color={item.color1}/>
 
                     </Pressable>
 
@@ -58,7 +62,8 @@ export default function Page() {
                         style={[styles.color_view, { backgroundColor: item.color2, width: "50%", height: item.size}]}
                         onPress={() => navigateToDisplayColors(item.color2)}
                     >
-                        
+                        <HexColorView hex={item.color2} />
+                        <GoFullScreen color={item.color2}/>
                     </Pressable>
                 </View>
             
@@ -81,6 +86,6 @@ const styles = StyleSheet.create({
         flex: 1,
         borderRadius: 10,
         margin: 4,
-        
+        position: 'relative'
     }
 });
