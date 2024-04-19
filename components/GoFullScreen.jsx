@@ -10,7 +10,6 @@ const GoFullScreen = ({ color }) => {
         setIsFullScreen(!isFullScreen);
     };
 
-    console.log(color, 'col');
     return (
         <>
             <TouchableOpacity
