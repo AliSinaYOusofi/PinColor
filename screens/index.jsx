@@ -9,7 +9,7 @@ import UtilsButton from '../components/UtilsButton';
 export default function Page() {
     const [data, setData] = useState([]);
     const [refresh, setRefresh] = useState(false);
-    const [currentLayout, setCurrentLayout] = useState('three_row_items');
+    const [currentLayout, setCurrentLayout] = useState('one_row_items');
     
     const [pressableStyle, setPressableStyle] = useState()
     
@@ -65,33 +65,25 @@ export default function Page() {
                 };
                 pressableStyle = {
                     width: "50%",
-                    height: "50%",
+                    height: "100%",
                 };
                 break;
     
             case 'one_column':
                 containerStyle = {
+                    flex: 1,
                     flexDirection: 'column',
-                    paddingHorizontal: 0,
+                    paddingHorizontal: 10,
                     
                     flexWrap: "wrap"
                 };
                 pressableStyle = {
+                    flex: 1, // Take up all available space
                     width: "100%",
-                    height: "100%",
+            
                 };
                 break;
-    
-            default:
-                containerStyle = {
-                    flexDirection: 'row',
-                    paddingHorizontal: 10,
-                    
-                };
-                pressableStyle = {
-                    width: "50%",
-                };
-                break;
+
         }
     
         return { containerStyle, pressableStyle };
@@ -112,7 +104,7 @@ export default function Page() {
                 renderItem={({ item }) => (
                     <View style={[styles.row, containerStyle]}>
                         <Pressable
-                            style={[styles.color_view, { backgroundColor: item.color1, pressableStyle, height: item.size }]}
+                            style={[styles.color_view, { backgroundColor: item.color1, ...pressableStyle, height: item.size }]}
                             onPress={() => navigateToDisplayColors(item.color1)}
                         >
                             <HexColorView hex={item.color1} />
@@ -120,7 +112,7 @@ export default function Page() {
                         </Pressable>
 
                         <Pressable
-                            style={[styles.color_view, { backgroundColor: item.color2, pressableStyle, height: item.size }]}
+                            style={[styles.color_view, { backgroundColor: item.color2, ...pressableStyle, height: item.size }]}
                             onPress={() => navigateToDisplayColors(item.color2)}
                             
                         >
