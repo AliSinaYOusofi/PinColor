@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, FlatList, Pressable } from 'react-native';
 import tinycolor from 'tinycolor2';
+import GoFullScreen from '../components/GoFullScreen';
+import AddToFavourties from '../components/AddToFavourties';
 
 export default function DisplayColors({ route }) {
     
@@ -35,7 +37,10 @@ export default function DisplayColors({ route }) {
 
     return (
         <View style={styles.container}>
-            <View style={[styles.bigColorDisplay, { backgroundColor: currentDisplayColor, borderRadius: 20 }]}></View>
+            <View style={[styles.bigColorDisplay, { backgroundColor: currentDisplayColor, borderRadius: 20 }]}>
+                <GoFullScreen color={currentDisplayColor} />
+                <AddToFavourties />
+            </View>
 
             <FlatList
                 horizontal
@@ -43,7 +48,10 @@ export default function DisplayColors({ route }) {
                 data={shadesList}
                 renderItem={({ item }) => (
                     <Pressable onPress={() => setCurrentDisplayColor(item.color)}>
-                        <View style={[styles.colorBox, { backgroundColor: item.color }]}></View>
+                        <View style={[styles.colorBox, { backgroundColor: item.color }]}>
+                            <GoFullScreen color={item.color} />
+                        </View>
+
                     </Pressable>
                 )}
                 keyExtractor={(item) => item.key}
@@ -63,6 +71,7 @@ const styles = StyleSheet.create({
         height: 100,
         borderRadius: 20,
         marginHorizontal: 5,
+        position: "relative"
     },
     bigColorDisplay: {
         width: 300,
