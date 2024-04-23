@@ -9,7 +9,7 @@ import UtilsButton from '../components/UtilsButton';
 export default function Page() {
     const [data, setData] = useState([]);
     const [refresh, setRefresh] = useState(false);
-    const [currentLayout, setCurrentLayout] = useState('one_row_items');
+    const [currentLayout, setCurrentLayout] = useState(false);
     
     const [pressableStyle, setPressableStyle] = useState()
     
@@ -55,7 +55,7 @@ export default function Page() {
         let pressableStyle;
     
         switch (currentLayout) {
-            case 'two_row_items':
+            case true:
                 containerStyle = {
                     flexDirection: 'row',
                     flexWrap: 'wrap',
@@ -69,7 +69,7 @@ export default function Page() {
                 };
                 break;
     
-            case 'one_column':
+            case false:
                 containerStyle = {
                     flex: 1,
                     flexDirection: 'column',
@@ -97,6 +97,7 @@ export default function Page() {
 
     console.log(containerStyle)
     console.log(pressableStyle)
+
     return (
         <>
             <FlatList
@@ -130,17 +131,7 @@ export default function Page() {
             <UtilsButton
                 onRefresh={setRefresh}
                 onLayout={() =>
-                    setCurrentLayout((prevLayout) => {
-                        switch (prevLayout) {
-                            case 'two_row_items':
-                                return 'three_row_items';
-                            case 'three_row_items':
-                                return 'one_column';
-                            case 'one_column':
-                            default:
-                                return 'two_row_items';
-                        }
-                    })
+                    setCurrentLayout((prevLayout) => ! prevLayout)
                 }
             />
         </>
