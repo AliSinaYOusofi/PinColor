@@ -3,6 +3,7 @@ import { View, StyleSheet, FlatList, Pressable } from 'react-native';
 import tinycolor from 'tinycolor2';
 import GoFullScreen from '../components/GoFullScreen';
 import AddToFavourties from '../components/AddToFavourties';
+import HexColorView from '../components/HexColorView';
 
 export default function DisplayColors({ route }) {
     
@@ -39,7 +40,8 @@ export default function DisplayColors({ route }) {
         <View style={styles.container}>
             <View style={[styles.bigColorDisplay, { backgroundColor: currentDisplayColor, borderRadius: 20 }]}>
                 <GoFullScreen color={currentDisplayColor} />
-                <AddToFavourties />
+                <AddToFavourties color={currentDisplayColor}/>
+                <HexColorView hex={currentDisplayColor} />
             </View>
 
             <FlatList

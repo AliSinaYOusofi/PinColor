@@ -10,6 +10,9 @@ import shadesOfOrange from '../colors/ShadesOfOrange';
 import shadesOfGreen from '../colors/ShadesOfGreen';
 import shadesOfBlue from '../colors/ShadesOfBlue';
 import shadesOfGrey from '../colors/ShadesOfGray';
+import AddToFavourties from '../components/AddToFavourties';
+import GoFullScreen from '../components/GoFullScreen';
+import HexColorView from '../components/HexColorView';
 
 export default function DisplayShadesOfColors({ route }) {
 
@@ -62,7 +65,11 @@ export default function DisplayShadesOfColors({ route }) {
     return (
         <View style={styles.container}>
             
-            <View style={[styles.bigColorDisplay, { backgroundColor: currentDisplayColor, borderRadius: 20 }]}></View>
+            <View style={[styles.bigColorDisplay, { backgroundColor: currentDisplayColor, borderRadius: 20 }]}>
+                <AddToFavourties color={currentDisplayColor}/>
+                <GoFullScreen color={currentDisplayColor} />
+                <HexColorView hex={currentDisplayColor}/>
+            </View>
 
             <FlatList
                 horizontal
@@ -70,7 +77,9 @@ export default function DisplayShadesOfColors({ route }) {
                 data={shadesList}
                 renderItem={({ item }) => (
                     <Pressable onPress={() => setCurrentDisplayColor(item)}>
-                        <View style={[styles.colorBox, { backgroundColor: item }]}></View>
+                        <View style={[styles.colorBox, { backgroundColor: item }]}>
+                            <GoFullScreen color={item}/>
+                        </View>
                     </Pressable>
                 )}
                 keyExtractor={(item) => item.key}
@@ -91,7 +100,7 @@ const styles = StyleSheet.create({
     colorBox: {
         width: 100,
         height: 100,
-        borderRadius: 20,
+        borderRadius: 10,
         marginHorizontal: 5,
         position: 'relative',
     },
@@ -99,7 +108,7 @@ const styles = StyleSheet.create({
     bigColorDisplay: {
         width: 300,
         height: 450,
-        borderRadius: 20,
+        borderRadius: 5,
         marginTop: 20
     },
     
