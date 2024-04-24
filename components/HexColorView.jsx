@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { Pressable, TouchableOpacity, StyleSheet, Text, ToastAndroid } from 'react-native'
+import { TouchableOpacity, StyleSheet, Text, ToastAndroid } from 'react-native'
 import * as Clipboard from 'expo-clipboard';
 
 export default function HexColorView({hex}) {
