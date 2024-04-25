@@ -95,9 +95,6 @@ export default function Page() {
         setPressableStyle(pressableStyle);
     }, [currentLayout]);
 
-    console.log(containerStyle)
-    console.log(pressableStyle)
-
     return (
         <>
             <FlatList

@@ -8,6 +8,8 @@ import SettingsNavigator from './components/SettingsNavigator';
 import MenuDrawer from './screens/MenuDrawer';
 import DisplayColors from './screens/DisplayColors';
 import DisplayShadesOfColors from './screens/DisplayShadesOfColors';
+import favourite_colors from './global/db_name';
+import FavouriteColors from './screens/FavouriteColors';
 
 SystemUI.setBackgroundColorAsync("white");
 const Stack = createNativeStackNavigator()
@@ -26,6 +28,7 @@ export default function App({navigation}) {
 
                 <Stack.Screen component={DisplayColors} name="displaycolors"/>
                 <Stack.Screen component={DisplayShadesOfColors} name="displayshades" />
+                <Stack.Screen component={FavouriteColors} name="favcolors" />
             </Stack.Navigator>
         </NavigationContainer>
     )
