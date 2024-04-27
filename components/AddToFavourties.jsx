@@ -10,11 +10,13 @@ export default function AddToFavourties({color}) {
     const db = SQLite.openDatabase(favourite_colors);
     
     const addColor = (color) => {
+
         db.transaction(tx => {
             tx.executeSql(
                 'INSERT INTO colors (color) VALUES (?)',
                 [color],
                 (_, { rowsAffected }) => {
+                    console.log(rowsAffected, 'rows aff')
                     if (rowsAffected > 0) {
                         ToastAndroid.show(`Added '${color}' to favorites.`, ToastAndroid.LONG);
                     } else {
@@ -45,20 +47,17 @@ export default function AddToFavourties({color}) {
     
 
     const addOrRemoveColor = () => {
-        console.log(color)
+        
         db.transaction(tx => {
+            
             tx.executeSql(
-                'SELECT * FROM colors WHERE color = ?',
-                [color],
-                (_, { rows }) => {
-                    console.log(rows._array)
-                    if (rows._array.length > 0) {
-                        console.log('remov to fav')
-                        removeColor(color);
-                    } else {
-                        console.log('add from fav')
-                        addColor(color);
-                    }
+            
+                'SELECT * FROM colors',
+            
+                [],
+            
+                (_, success) => {
+                    console.log(success.rows)
                 },
                 (_, error) => {
                     console.error('Error checking color in favorites:', error.message);
@@ -71,7 +70,7 @@ export default function AddToFavourties({color}) {
     useEffect(() => {
         db.transaction(tx => {
             tx.executeSql(
-                'CREATE TABLE IF NOT EXISTS colors ( id INTEGER PRIMARY KEY AUTOINCREMENT,color TEXT UNIQUE);'
+                'CREATE TABLE IF NOT EXISTS colors ( id INTEGER PRIMARY KEY AUTOINCREMENT, color TEXT UNIQUE);'
             ,
                 [],
                 () => {

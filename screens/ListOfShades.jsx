@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import allShades from '../colors/allShadesParent';
 import HexColorView from '../components/HexColorView';
 import GoFullScreen from '../components/GoFullScreen';
+import AddToFavourties from '../components/AddToFavourties';
 export default function ListOfShades() {
     const navigation = useNavigation();
 
@@ -24,6 +25,7 @@ export default function ListOfShades() {
                         <Text style={{color: item.name === 'White'  ? "black": "white"}}>{item.name}</Text>
                         <HexColorView hex={item.hex} />
                         <GoFullScreen color={item.hex}/>
+                        <AddToFavourties color={item.hex}/>
                     </Pressable>
                     
                 )}

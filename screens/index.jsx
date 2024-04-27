@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import HexColorView from '../components/HexColorView';
 import GoFullScreen from '../components/GoFullScreen';
 import UtilsButton from '../components/UtilsButton';
+import AddToFavourties from '../components/AddToFavourties';
 
 export default function Page() {
     const [data, setData] = useState([]);
@@ -107,6 +108,7 @@ export default function Page() {
                         >
                             <HexColorView hex={item.color1} />
                             <GoFullScreen color={item.color1} />
+                            <AddToFavourties color={item.color1}/>
                         </Pressable>
 
                         <Pressable
@@ -116,6 +118,7 @@ export default function Page() {
                         >
                             <HexColorView hex={item.color2} />
                             <GoFullScreen color={item.color2} />
+                            <AddToFavourties color={item.color2}/>
                         </Pressable>
                     </View>
                 )}
