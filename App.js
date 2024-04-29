@@ -1,14 +1,10 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Ionicons } from '@expo/vector-icons';
-import { Pressable } from 'react-native';
 import * as SystemUI from 'expo-system-ui';
-import SettingsNavigator from './components/SettingsNavigator';
 import MenuDrawer from './screens/MenuDrawer';
 import DisplayColors from './screens/DisplayColors';
 import DisplayShadesOfColors from './screens/DisplayShadesOfColors';
-import favourite_colors from './global/db_name';
 import FavouriteColors from './screens/FavouriteColors';
 
 SystemUI.setBackgroundColorAsync("white");
