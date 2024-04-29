@@ -10,7 +10,7 @@ export default function AddToFavourties({color}) {
     const db = SQLite.openDatabase(favourite_colors);
     
     const addColor = (color) => {
-
+        console.log('add color')
         db.transaction(tx => {
             tx.executeSql(
                 'INSERT INTO colors (color) VALUES (?)',
@@ -31,6 +31,7 @@ export default function AddToFavourties({color}) {
     };
     
     const removeColor = (color) => {
+        console.log('remove color')
         db.transaction(tx => {
             tx.executeSql(
                 'DELETE FROM colors WHERE color = ?',
@@ -47,40 +48,47 @@ export default function AddToFavourties({color}) {
     
 
     const addOrRemoveColor = () => {
-        
-        db.transaction(tx => {
-            
-            tx.executeSql(
-            
-                'SELECT * FROM colors',
-            
-                [],
-            
-                (_, success) => {
-                    console.log(success.rows)
-                },
-                (_, error) => {
-                    console.error('Error checking color in favorites:', error.message);
-                }
-            );
-        });
+
+        try {
+            console.log('trying')
+            db.transaction(tx => {
+                tx.executeSql(
+                    'SELECT * FROM ;',
+                    [color],
+                    (_, { rows }) => {
+                        console.log(rows, 'rows')
+                        if (rows.length > 0) {
+                            removeColor(color);
+                        } else {
+                            addColor(color);
+                        }
+                    },
+                    (_, error) => {
+                        console.error('Error selecting color from favorites:', error.message);
+                    }
+                );
+            });
+        }
+        catch (error) {
+            console.error('Error selecting color from favorites:', error.message);
+        }
+        console.log('done')
     };
-    
     
     useEffect(() => {
         db.transaction(tx => {
             tx.executeSql(
-                'CREATE TABLE IF NOT EXISTS colors ( id INTEGER PRIMARY KEY AUTOINCREMENT, color TEXT UNIQUE);'
+                'CREATE TABLE IF NOT EXISTS colors ( id INTEGER PRIMARY KEY AUTOINCREMENT, color TEXT);'
             ,
-                [],
-                () => {
-                    console.log('Table created successfully.');
-                },
-                (_, error) => {
-                    console.error('Error creating table:', error.message);
-                });
+            [],
+            (_, db_n) => {
+                console.log('Table created successfully.', db_n);
+            },
+            (_, error) => {
+                console.error('Error creating table:', error.message);
+            });
         });
-    }, []);
+    }, []); 
     
 
     return (
