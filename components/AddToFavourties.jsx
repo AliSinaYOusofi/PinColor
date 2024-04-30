@@ -1,19 +1,19 @@
 import { Ionicons } from '@expo/vector-icons'
 import React, { useEffect } from 'react'
-import { TouchableOpacity, StyleSheet} from 'react-native'
+import { TouchableOpacity, StyleSheet, Pressable} from 'react-native'
 import * as SQLite from 'expo-sqlite';
-import favourite_colors from '../global/db_name';
+import favourite_colors from '../global/Database';
 import { ToastAndroid } from 'react-native';
-
+import Database from '../global/Database';
 export default function AddToFavourties({color}) {
     
     const db = SQLite.openDatabase(favourite_colors);
     
     const addColor = (color) => {
         console.log('add color')
-        db.transaction(tx => {
+        Database.transaction(tx => {
             tx.executeSql(
-                'INSERT INTO colors (color) VALUES (?)',
+                'INSERT INTO colors (color) VALUES (?);',
                 [color],
                 (_, { rowsAffected }) => {
                     console.log(rowsAffected, 'rows aff')
@@ -32,7 +32,7 @@ export default function AddToFavourties({color}) {
     
     const removeColor = (color) => {
         console.log('remove color')
-        db.transaction(tx => {
+        Database.transaction(tx => {
             tx.executeSql(
                 'DELETE FROM colors WHERE color = ?',
                 [color],
@@ -47,36 +47,29 @@ export default function AddToFavourties({color}) {
     };
     
 
-    const addOrRemoveColor = () => {
-
-        try {
-            console.log('trying')
-            db.transaction(tx => {
-                tx.executeSql(
-                    'SELECT * FROM ;',
-                    [color],
-                    (_, { rows }) => {
-                        console.log(rows, 'rows')
-                        if (rows.length > 0) {
-                            removeColor(color);
-                        } else {
-                            addColor(color);
-                        }
-                    },
-                    (_, error) => {
-                        console.error('Error selecting color from favorites:', error.message);
+    const addOrRemoveColor = (color) => {
+        
+        Database.transaction(tx => {
+            tx.executeSql(
+                'SELECT * FROM colors WHERE color = ?',
+                [color],
+                (_, success) => {
+                    
+                    if (success.rows.length > 0) {
+                        removeColor(color);
+                    } else {
+                        addColor(color);
                     }
-                );
-            });
-        }
-        catch (error) {
-            console.error('Error selecting color from favorites:', error.message);
-        }
-        console.log('done')
+                },
+                (_, error) => {
+                    console.error('Error selecting color from favorites:', error.message);
+                }
+            );
+        });
     };
     
     useEffect(() => {
-        db.transaction(tx => {
+        Database.transaction(tx => {
             tx.executeSql(
                 'CREATE TABLE IF NOT EXISTS colors ( id INTEGER PRIMARY KEY AUTOINCREMENT, color TEXT);'
             ,
@@ -94,7 +87,7 @@ export default function AddToFavourties({color}) {
     return (
         <>
 
-            <TouchableOpacity onPress={addOrRemoveColor} style={styles.iconContainer}>
+            <TouchableOpacity onPress={() => addOrRemoveColor(color)} style={styles.iconContainer}>
                 <Ionicons name="heart-outline" size={24} color="black" />
             </TouchableOpacity>
 
