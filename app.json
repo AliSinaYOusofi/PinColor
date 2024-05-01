@@ -21,17 +21,23 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.alisinayousofi.color_scroll"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "c63544f1-002b-4155-851c-69d7a08a323e"
+      }
+    }
   },
-  
   "scheme": "your-app-scheme"
-  
-  
 }

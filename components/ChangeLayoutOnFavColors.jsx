@@ -2,10 +2,11 @@ import React from 'react'
 import { View, TouchableOpacity, StyleSheet } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 
-export default function ChangeLayoutOnFavColors() {
+export default function ChangeLayoutOnFavColors({onLayout}) {
+    
     return (
         <View style={styles.container}>
-            <TouchableOpacity  onPress={() => console.log("")} style={styles.iconContainer}>
+            <TouchableOpacity  onPress={() => onLayout()} style={styles.iconContainer}>
                 <Ionicons name="grid" size={24} color="black" />
             </TouchableOpacity>
         </View>

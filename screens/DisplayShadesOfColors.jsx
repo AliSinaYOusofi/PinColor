@@ -73,6 +73,7 @@ export default function DisplayShadesOfColors({ route }) {
 
             <FlatList
                 horizontal
+                style={styles.flat_list}
                 contentContainerStyle={styles.smallColorGallery}
                 data={shadesList}
                 renderItem={({ item }) => (
@@ -94,6 +95,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        position: 'relative'
 
     },
     
@@ -106,10 +108,13 @@ const styles = StyleSheet.create({
     },
     
     bigColorDisplay: {
-        width: 300,
-        height: 450,
-        borderRadius: 5,
-        marginTop: 20
+        width: 350,
+        height: "80%",
+        borderRadius: 10,
+       
+        marginBottom: 110,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     
     smallColorGallery: {
@@ -117,4 +122,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexGrow: 1,
     },
+
+    flat_list: {
+        position: "absolute",
+        bottom: 10
+    }
 });

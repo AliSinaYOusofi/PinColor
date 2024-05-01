@@ -84,7 +84,6 @@ export default function Page() {
             
                 };
                 break;
-
         }
     
         return { containerStyle, pressableStyle };
@@ -95,7 +94,7 @@ export default function Page() {
         setContainerStyle(containerStyle);
         setPressableStyle(pressableStyle);
     }, [currentLayout]);
-
+    
     return (
         <>
             <FlatList

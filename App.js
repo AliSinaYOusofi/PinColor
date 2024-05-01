@@ -7,8 +7,8 @@ import DisplayColors from './screens/DisplayColors';
 import DisplayShadesOfColors from './screens/DisplayShadesOfColors';
 import FavouriteColors from './screens/FavouriteColors';
 
-SystemUI.setBackgroundColorAsync("white");
 const Stack = createNativeStackNavigator()
+SystemUI.setBackgroundColorAsync("white");
 
 export default function App({navigation}) {
 
