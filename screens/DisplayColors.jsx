@@ -44,9 +44,10 @@ export default function DisplayColors({ route }) {
                 <AddToFavourties color={currentDisplayColor}/>
                 <HexColorView hex={currentDisplayColor} />
             </View>
-
+            
             <FlatList
                 horizontal
+                style={styles.flat_list}
                 contentContainerStyle={styles.smallColorGallery}
                 data={shadesList}
                 renderItem={({ item }) => (
@@ -60,7 +61,7 @@ export default function DisplayColors({ route }) {
                 keyExtractor={(item) => item.key}
             />
 
-            <SetAsBackgroud color={currentDisplayColor}/>
+            
         </View>
     );
 }
@@ -70,6 +71,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        position: 'relative'
     },
     colorBox: {
         width: 100,
@@ -79,14 +81,22 @@ const styles = StyleSheet.create({
         position: "relative"
     },
     bigColorDisplay: {
-        width: 300,
-        height: 450,
+        width: 350,
+        height: "80%",
         borderRadius: 20,
-        marginTop: 0
+        marginTop: 0,
+        marginBottom: 110,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     smallColorGallery: {
         alignItems: 'center',
         justifyContent: 'center',
         flexGrow: 1,
     },
+
+    flat_list: {
+        position: "absolute",
+        bottom: 10
+    }
 });

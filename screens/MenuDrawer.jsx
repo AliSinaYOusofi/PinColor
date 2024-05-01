@@ -28,7 +28,7 @@ export default function MenuDrawer() {
                     fontWeight: 'bold',
                 },
             
-                title: "ColScr",
+                title: "PinCol",
                 headerTitleAlign: 'center',
                 headerShadowVisible: false,
                 headerBackVisible: false,
@@ -69,7 +69,7 @@ export default function MenuDrawer() {
                 }}
             />
 
-            <Drawer.Screen
+            {/* <Drawer.Screen
                 name="settings"
                 component={Settings}
                 options={({ navigation }) => ({
@@ -87,7 +87,7 @@ export default function MenuDrawer() {
                         </Pressable>
                     ),
                 })}
-            />
+            /> */}
             <Drawer.Screen
                 name="shades"
                 component={ListOfShades}
