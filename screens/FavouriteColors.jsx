@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Text, FlatList, StyleSheet, Pressable } from 'react-native';
+import { Text, FlatList, StyleSheet, Pressable, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import favourite_colors from '../global/Database';
-import * as SQLite from 'expo-sqlite';
 import Database from '../global/Database'
+import RemoveFromFavourties from '../components/RemoveFromFavourties';
+import GoFullScreen from '../components/GoFullScreen';
+import HexColorView from '../components/HexColorView';
+import ChangeLayoutOnFavColors from '../components/ChangeLayoutOnFavColors';
+import NoFavoritesComponent from '../components/NoFavColors';
 export default function FavouriteColors() {
     
     const [colors, setColors] = useState([]);
-    
+    const [pressableStyle, setPressableStyle] = useState()
+    const [currentLayout, setCurrentLayout] = useState(false);
+    const [containerStyle, setContainerStyle] = useState();
+    const [refresh, setRefresh] = useState(false);
+
     const navigation = useNavigation();
 
     const fetchColors = () => {
@@ -17,9 +24,6 @@ export default function FavouriteColors() {
                 'SELECT * FROM colors',
                 [],
                 (_, { rows }) => {
-                    
-                    
-                    console.log(rows._array, ' the fucking result');
                     setColors(rows._array);
                 },
                 (_, error) => {
@@ -29,27 +33,84 @@ export default function FavouriteColors() {
         });
     };
     
-
     useEffect(() => {
         fetchColors();
-    }, []);
+    }, [refresh]);
 
     const navigateToDisplayColors = (color) => {
         navigation.navigate('displaycolors', { color });
     };
 
+    const handleChangeLayout = () => {
+        let containerStyle;
+        let pressableStyle;
+    
+        switch (currentLayout) {
+            case true:
+                containerStyle = {
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-between',
+                    paddingHorizontal: 10,
+                };
+                pressableStyle = {
+                    width: "50%",
+                    height: 100,
+                };
+                break;
+    
+            case false:
+                containerStyle = {
+                    flex: 1,
+                    flexDirection: 'column',
+                    paddingHorizontal: 10,
+                    flexWrap: "wrap"
+                };
+                pressableStyle = {
+                    flex: 1, // Take up all available space
+                    width: "100%",
+                };
+                break;
+        }
+    
+        setContainerStyle(containerStyle);
+        setPressableStyle(pressableStyle);
+    };
+    
+    useEffect(() => {
+        handleChangeLayout();
+    }, [currentLayout]);
+    
+    if (!colors.length) return <NoFavoritesComponent />
+
     return (
         <>
+            
             <FlatList
                 data={colors}
                 renderItem={({ item }) => (
-                    <Pressable
-                        style={[styles.color_view, { backgroundColor: item.color }]}
-                        onPress={() => navigateToDisplayColors(item.color)}
-                    />
+                    <View style={[containerStyle, styles.row]}>
+                        <Pressable
+                            style={[styles.color_view, { backgroundColor: item.color, ...pressableStyle, height: 100 }]}
+                            onPress={() => navigateToDisplayColors(item.color)}
+                        >
+                            <RemoveFromFavourties 
+                                color={item.color}
+                                onRefresh={() => setRefresh(prev => ! prev)} 
+                            />
+                            <GoFullScreen color={item.color}/>
+                            <HexColorView hex={item.color} />
+                        </Pressable>
+
+                    </View>
                 )}
                 keyExtractor={(item, index) => item.id}
                 numColumns={1}
+            />
+
+            <ChangeLayoutOnFavColors onLayout={() =>
+                    setCurrentLayout((prevLayout) => ! prevLayout)
+                }
             />
         </>
     );
@@ -62,11 +123,12 @@ const styles = StyleSheet.create({
         height: 100,
         margin: 4,
         borderRadius: 10,
+        position: 'relative'
     },
     
     row: {
         justifyContent: "center",
         alignContent: "center",
-        alignItems: 'center'
+        alignItems: 'center',
     },
 });

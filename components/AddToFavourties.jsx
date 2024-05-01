@@ -75,7 +75,7 @@ export default function AddToFavourties({color}) {
             ,
             [],
             (_, db_n) => {
-                console.log('Table created successfully.', db_n);
+                // console.log('Table created successfully.', db_n);
             },
             (_, error) => {
                 console.error('Error creating table:', error.message);

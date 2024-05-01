@@ -4,6 +4,7 @@ import tinycolor from 'tinycolor2';
 import GoFullScreen from '../components/GoFullScreen';
 import AddToFavourties from '../components/AddToFavourties';
 import HexColorView from '../components/HexColorView';
+import SetAsBackgroud from '../components/SetAsBackgroud';
 
 export default function DisplayColors({ route }) {
     
@@ -58,6 +59,8 @@ export default function DisplayColors({ route }) {
                 )}
                 keyExtractor={(item) => item.key}
             />
+
+            <SetAsBackgroud color={currentDisplayColor}/>
         </View>
     );
 }
@@ -79,7 +82,7 @@ const styles = StyleSheet.create({
         width: 300,
         height: 450,
         borderRadius: 20,
-        marginTop: 20
+        marginTop: 0
     },
     smallColorGallery: {
         alignItems: 'center',
