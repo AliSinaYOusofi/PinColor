@@ -1,7 +1,2 @@
-# RGBs
-Infinite color scroll. This application replicates the funcitons of a gallery or an image viewer but only colors.
-
-This application helps developers search for random colors which the might want to use for their next
-project.
-
-You can load color palletes and add your favourites to your list.
+# PinColor
+Are you searching for the perfect colors to use in your next project? Look no further! PinColor is here to help you discover a wide range of random colors and shades that can inspire your next design. Whether you're designing a website, mobile app, or any other creative project, PinColor can assist you in finding the ideal color palette. Explore our collection of colors today and let your creativity shine!
