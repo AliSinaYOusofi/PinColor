@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "color_scroll",
+    "name": "PinColor",
     "slug": "color_scroll",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -39,5 +39,8 @@
       }
     }
   },
-  "scheme": "your-app-scheme"
+  "scheme": "your-app-scheme",
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-1665900038997295/7073231037"
+  }
 }
