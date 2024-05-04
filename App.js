@@ -6,17 +6,18 @@ import MenuDrawer from './screens/MenuDrawer';
 import DisplayColors from './screens/DisplayColors';
 import DisplayShadesOfColors from './screens/DisplayShadesOfColors';
 import FavouriteColors from './screens/FavouriteColors';
-import mobileAds from 'react-native-google-mobile-ads'
+import mobileAds from 'react-native-google-mobile-ads';
 const Stack = createNativeStackNavigator()
 SystemUI.setBackgroundColorAsync("white");
 
-mobileAds()
-  .initialize()
-  .then(() => console.log('Ads initialized'))
-  .catch(error => console.error(error));
-  
-export default function App({navigation}) {
 
+mobileAds()
+.initialize()
+.then(() => console.log('Ads initialized'))
+.catch(error => console.error(error + " error"));
+
+export default function App({navigation}) {
+  
     return (
         <NavigationContainer>
             <Stack.Navigator>

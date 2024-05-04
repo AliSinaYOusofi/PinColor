@@ -6,6 +6,9 @@ import HexColorView from '../components/HexColorView';
 import GoFullScreen from '../components/GoFullScreen';
 import UtilsButton from '../components/UtilsButton';
 import AddToFavourties from '../components/AddToFavourties';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+
+const adUnitId = __DEV__ ? TestIds.ADAPTIVE_BANNER : 'ca-app-pub-1665900038997295/7073231037';
 
 export default function Page() {
     const [data, setData] = useState([]);
@@ -126,7 +129,10 @@ export default function Page() {
                 onEndReachedThreshold={0.1}
                 numColumns={1}
             />
-
+             <BannerAd
+                unitId={adUnitId}
+                size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                />
             <UtilsButton
                 onRefresh={setRefresh}
                 onLayout={() =>
