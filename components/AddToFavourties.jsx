@@ -1,14 +1,36 @@
 import { Ionicons } from '@expo/vector-icons'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TouchableOpacity, StyleSheet, Pressable} from 'react-native'
 import * as SQLite from 'expo-sqlite';
 import favourite_colors from '../global/Database';
 import { ToastAndroid } from 'react-native';
 import Database from '../global/Database';
+import { InterstitialAd, TestIds, AdEventType } from 'react-native-google-mobile-ads';
+
+const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-1665900038997295/8316329829';
+
+const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+  keywords: ['fashion', 'clothing', 'sports'],
+});
+
 export default function AddToFavourties({color}) {
     
     const db = SQLite.openDatabase(favourite_colors);
     
+    const [loaded, setLoaded] = useState(false);
+
+    useEffect(() => {
+        const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
+        setLoaded(true);
+        });
+
+    // Start loading the interstitial straight away
+        interstitial.load();
+
+    // Unsubscribe from events on unmount
+        return unsubscribe;
+    }, []);
+
     const addColor = (color) => {
         console.log('add color')
         Database.transaction(tx => {
@@ -60,6 +82,9 @@ export default function AddToFavourties({color}) {
                     } else {
                         addColor(color);
                     }
+
+                    if (loaded) interstitial.show()
+
                 },
                 (_, error) => {
                     console.error('Error selecting color from favorites:', error.message);
